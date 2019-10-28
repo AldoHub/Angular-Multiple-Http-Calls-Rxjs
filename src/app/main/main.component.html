@@ -1,0 +1,50 @@
+<section>
+    <form (ngSubmit)="getData(postForm.value)" [formGroup]="postForm">
+         
+        <h2>Powered by News API</h2>
+        <p>Select 2 sources from the options</p>  
+        
+        
+        <div class="form-control">
+        <label for="sources">Sources</label>
+        <select id="sources" formControlName="sources" multiple>
+            <option *ngFor="let source of sources" value="{{source.id}}">{{source.name}}</option>
+        </select>
+        </div>  
+        
+        <input type="submit" [disabled]="!postForm.valid" value="Submit">
+    </form>
+
+
+    <div class="news">
+        <div *ngIf="firstSet && firstSet.length > 0; else showMessage">
+            <div class="item" *ngFor="let item of firstSet">
+                <div class="cover" [ngStyle]="{'background-image': 'url('+ item.urlToImage +')'}"></div>
+                <h2>{{item.title}}</h2>
+                <div>{{item.description}}</div>
+                
+                <a href="{{item.url}}" target="_blank">Check Article <span>&rArr;</span></a>
+        
+            </div>
+        </div>
+
+        <div *ngIf="secondSet && secondSet.length > 0; else showMessage">
+            <div class="item" *ngFor="let item of secondSet">
+                <div class="cover" [ngStyle]="{'background-image': 'url('+ item.urlToImage +')'}"></div>
+                <h2>{{item.title}}</h2>
+                <div>{{item.description}}</div>
+                
+                <a href="{{item.url}}" target="_blank">Check Article <span>&rArr;</span></a>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #showMessage>
+        <div class="message">
+            <img src="../../assets/search.svg" />
+            <p>No search made.</p>
+        </div>
+    </ng-template>
+    
+    
+</section>
